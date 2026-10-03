@@ -1,0 +1,34 @@
+{
+  "Records": [
+    {
+      "messageId": "msg-001",
+      "body": "{\"listing_id\": \"L1\", \"make\": \"Toyota\", \"model\": \"Hilux\", \"year\": 2019, \"price\": \"Cheap\"}",
+      "eventSource": "aws:sqs"
+    },
+    {
+      "messageId": "msg-002",
+      "body": "{\"listing_id\": \"L2\", \"make\": \"Mazda\", \"model\": \"CX-5\", \"year\": 2021, \"price\": 32500}",
+      "eventSource": "aws:sqs"
+    },
+    {
+      "messageId": "msg-003",
+      "body": "{\"listing_id\": \"L3\", \"make\": \"Porsche\", \"model\": \"Cayenne\", \"year\": 2025, \"price\": 10500}",
+      "eventSource": "aws:sqs"
+    },
+    {
+      "messageId": "msg-004",
+      "body": "{\"listing_id\": \"L4\", \"make\": \"BMW\", \"model\": \"X5\", \"year\": 2025, \"price\": 42500}",
+      "eventSource": "aws:sqs"
+    },
+    {
+      "messageId": "msg-005",
+      "body": "not json",
+      "eventSource": "aws:sqs"
+    },
+    {
+      "messageId": "msg-006",
+      "body": "{\"listing_id\": \"L4\", \"make\": \"Ford\"}",
+      "eventSource": "aws:sqs"
+    }
+  ]
+}

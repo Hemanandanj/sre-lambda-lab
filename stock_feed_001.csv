@@ -1,0 +1,4 @@
+stock_id,rego,make,model,year,odometer,price,branch
+STK1001,ABC123,Toyota,Hilux,2019,85000,35999,Penrose
+STK1002,DEF456,Mazda,CX-5,2021,42000,32500,Christchurch
+STK1003,GHI789,Ford,Ranger,2018,120000,28900,Hamilton
