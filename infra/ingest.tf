@@ -74,3 +74,35 @@ resource "aws_s3_bucket_notification" "uploads" {
 output "bucket_name" { value = aws_s3_bucket.uploads.bucket }
 output "queue_url" { value = aws_sqs_queue.stock_feed.id }
 output "dlq_url" { value = aws_sqs_queue.stock_feed_dlq.id }
+
+
+# ---------- Connect SQS -> Lambda ----------
+
+# Lambda reads the queue on our behalf, so its role needs these permissions
+resource "aws_iam_role_policy" "processor_sqs" {
+  name = "consume-stock-feed"
+  role = aws_iam_role.processor.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:GetQueueAttributes"]
+      Resource = aws_sqs_queue.stock_feed.arn
+    }]
+  })
+}
+
+resource "aws_lambda_event_source_mapping" "stock_feed" {
+  event_source_arn                   = aws_sqs_queue.stock_feed.arn
+  function_name                      = aws_lambda_function.processor.arn
+  batch_size                         = 10
+  maximum_batching_window_in_seconds = 5
+  function_response_types            = ["ReportBatchItemFailures"]
+
+  scaling_config {
+    maximum_concurrency = 5
+  }
+
+  depends_on = [aws_iam_role_policy.processor_sqs]
+}
